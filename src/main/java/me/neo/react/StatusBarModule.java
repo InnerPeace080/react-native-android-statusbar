@@ -34,7 +34,7 @@ public class StatusBarModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void setRGB(int r, int g, int b){
-        int color = Color.rgb(r,g,b);
+        int color = Color.rgb(r, g, b);
         setStatusColor(color);
     }
 
@@ -68,7 +68,7 @@ public class StatusBarModule extends ReactContextBaseJavaModule {
             public void run() {
                 View decorView = mActivity.getWindow().getDecorView();
                 // Hide the status bar.
-                int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+                int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN ;
                 decorView.setSystemUiVisibility(uiOptions);
             }
         });
@@ -88,5 +88,21 @@ public class StatusBarModule extends ReactContextBaseJavaModule {
             }
         });
     }
-    
+
+    @ReactMethod
+    public void fullScreen(){
+        mActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                View decorView = mActivity.getWindow().getDecorView();
+                if(Build.VERSION.SDK_INT > 11 && Build.VERSION.SDK_INT < 19) { // lower api
+                    decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+                } else if(Build.VERSION.SDK_INT >= 19) {
+                    //for new api versions.
+                    int uiOptions =View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+                    decorView.setSystemUiVisibility(uiOptions);
+                }
+            }
+        });
+    }
 }
