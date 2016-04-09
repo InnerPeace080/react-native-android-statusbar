@@ -10,7 +10,6 @@ import android.view.WindowManager;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.ReadableArray;
 
 /**
  * Created by Nishanth Shankar on 9/24/15.
@@ -49,7 +48,7 @@ public class StatusBarModule extends ReactContextBaseJavaModule {
         mActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if(Build.VERSION.SDK_INT >= 21){
+                if (Build.VERSION.SDK_INT >= 21) {
                     Window window = mActivity.getWindow();
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                     window.setStatusBarColor(color);
@@ -69,7 +68,7 @@ public class StatusBarModule extends ReactContextBaseJavaModule {
             public void run() {
                 View decorView = mActivity.getWindow().getDecorView();
                 // Hide the status bar.
-                int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+                int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
                 decorView.setSystemUiVisibility(uiOptions);
             }
         });
@@ -89,4 +88,5 @@ public class StatusBarModule extends ReactContextBaseJavaModule {
             }
         });
     }
+    
 }
