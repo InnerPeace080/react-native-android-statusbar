@@ -1,7 +1,5 @@
 package me.neo.react;
 
-import android.app.Activity;
-
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;
 import com.facebook.react.bridge.NativeModule;
@@ -17,15 +15,11 @@ import java.util.List;
  * Created by Nishanth Shankar on 9/23/15.
  */
 public class StatusBarPackage implements ReactPackage {
-    private Activity mActivity = null;
 
-    public StatusBarPackage(Activity activity){
-        mActivity = activity;
-    }
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactApplicationContext) {
         List<NativeModule> modules = new ArrayList<NativeModule>();
-        modules.add(new StatusBarModule(reactApplicationContext,mActivity));
+        modules.add(new StatusBarModule(reactApplicationContext));
         return modules;
     }
 
